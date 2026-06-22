@@ -4,12 +4,12 @@ build-backend = "hatchling.build"
 
 [project]
 name = "contractguard"
-version = "0.1.0"
+version = "0.2.0"
 description = "Structural drift detection for nested JSON / dict data. Learn the shape of your payloads, freeze it as a contract, catch breaking changes before they hit your code."
 readme = "README.md"
 requires-python = ">=3.8"
 license = { text = "MIT" }
-authors = [{ name = "Aman Gupta", email = "amanmacair98@gmail.com" }]
+authors = [{ name = "YOUR NAME", email = "you@example.com" }]
 keywords = [
     "json",
     "schema",
@@ -46,8 +46,11 @@ Issues = "https://github.com/YOUR_USERNAME/contractguard/issues"
 [project.optional-dependencies]
 dev = ["pytest>=7.0"]
 
+[project.scripts]
+contractguard = "contractguard.cli:main"
+
+[project.entry-points.pytest11]
+contractguard = "contractguard.pytest_plugin"
+
 [tool.hatch.build.targets.wheel]
 packages = ["src/contractguard"]
-
-[tool.hatch.build.targets.wheel.sources]
-"src" = ""
