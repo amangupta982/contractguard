@@ -1,0 +1,53 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "contractguard"
+version = "0.1.0"
+description = "Structural drift detection for nested JSON / dict data. Learn the shape of your payloads, freeze it as a contract, catch breaking changes before they hit your code."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+authors = [{ name = "Aman Gupta", email = "amanmacair98@gmail.com" }]
+keywords = [
+    "json",
+    "schema",
+    "drift",
+    "validation",
+    "api",
+    "contract",
+    "testing",
+    "data-quality",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Quality Assurance",
+    "Topic :: Software Development :: Testing",
+    "Typing :: Typed",
+]
+# Zero runtime dependencies — pure standard library, on purpose.
+dependencies = []
+
+[project.urls]
+Homepage = "https://github.com/YOUR_USERNAME/contractguard"
+Repository = "https://github.com/YOUR_USERNAME/contractguard"
+Issues = "https://github.com/YOUR_USERNAME/contractguard/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/contractguard"]
+
+[tool.hatch.build.targets.wheel.sources]
+"src" = ""
