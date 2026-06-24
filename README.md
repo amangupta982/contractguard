@@ -3,7 +3,6 @@
 [![PyPI version](https://img.shields.io/pypi/v/contractguard.svg)](https://pypi.org/project/contractguard/)
 [![Python versions](https://img.shields.io/pypi/pyversions/contractguard.svg)](https://pypi.org/project/contractguard/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-23%20passing-brightgreen.svg)](https://github.com/amangupta982/contractguard)
 [![tests](https://github.com/amangupta982/contractguard/actions/workflows/tests.yml/badge.svg)](https://github.com/amangupta982/contractguard/actions/workflows/tests.yml)
 
 **Structural drift detection for nested JSON / dict data.**
