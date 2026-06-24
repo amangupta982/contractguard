@@ -4,3 +4,4 @@ src/contractguard/__pycache__/
 dist/
 *.egg-info/
 tests/__pycache__/
+.DS_Store
