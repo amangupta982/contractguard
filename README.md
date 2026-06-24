@@ -1,5 +1,10 @@
 # contractguard
 
+[![PyPI version](https://img.shields.io/pypi/v/contractguard.svg)](https://pypi.org/project/contractguard/)
+[![Python versions](https://img.shields.io/pypi/pyversions/contractguard.svg)](https://pypi.org/project/contractguard/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Tests](https://img.shields.io/badge/tests-23%20passing-brightgreen.svg)](https://github.com/amangupta982/contractguard)
+
 **Structural drift detection for nested JSON / dict data.**
 
 Learn the shape of your nested payloads from real samples, freeze it as a
@@ -19,12 +24,14 @@ if report.drifted:
     print(report)
 ```
 
-```
+```text
 3 change(s) detected:
   - TypeChanged: items[0].price  (float -> str)
   - TypeChanged: user.age  (int -> str)
   - NewKey: user.phone  (unexpected str)
 ```
+
+---
 
 ## Why this exists
 
@@ -35,6 +42,14 @@ you lose an afternoon finding it.
 
 `contractguard` learns the **structure** of your data from real examples and
 tells you, in plain language, exactly what changed and where.
+
+## Installation
+
+```bash
+pip install contractguard
+```
+
+No dependencies — pure Python standard library. Works on Python 3.8+.
 
 ## How it's different
 
@@ -59,20 +74,33 @@ on real API payloads, event streams, and config files.
   flood of child errors.
 - **Saveable contracts** — freeze a contract to JSON, commit it, check against
   it in CI.
+- **CLI included** — use it without writing Python.
+- **pytest plugin** — guard your test suite against API shape changes.
 
-## Install
+## Library usage
 
-```bash
-pip install contractguard
+```python
+import contractguard as cg
+
+samples = [
+    {"user": {"id": 1, "name": "ana", "email": "ana@x.com"}},
+    {"user": {"id": 2, "name": "bob"}},
+]
+
+# Learn a contract (lenient: 'email' becomes optional since it's missing above)
+contract = cg.learn(samples)
+
+# Persist it
+contract.save("user_contract.json")
+
+# Later, check a fresh payload
+report = contract.check({"user": {"id": 3, "name": "cleo", "age": "thirty"}})
+
+print(report.drifted)   # True
+print(report)           # human-readable breakdown
+for change in report.changes:
+    print(change.kind, change.path, change.detail)
 ```
-
-## What it detects
-
-- `TypeChanged` — a value's type changed (`int -> str`)
-- `KeyMissing` — a required key disappeared
-- `NewKey` — a key appeared that wasn't in the learned shape
-- `CardinalityChanged` — a list element's type changed, or a container's kind
-  changed (`list -> dict`)
 
 ## Command-line usage
 
@@ -111,6 +139,15 @@ If the response structure drifts, the test fails with a readable breakdown of
 exactly what changed. The contract argument accepts a saved-contract path, a
 `Contract` instance, or a list of sample payloads to learn from on the fly.
 
+## What it detects
+
+| Change kind | Meaning |
+|-------------|---------|
+| `TypeChanged` | A value's type changed (e.g. `int -> str`) |
+| `KeyMissing` | A required key disappeared |
+| `NewKey` | A key appeared that wasn't in the learned shape |
+| `CardinalityChanged` | A list element's type changed, or a container's kind changed (`list -> dict`) |
+
 ## Strict vs lenient
 
 By default, learning is **lenient**: a field missing from some samples is
@@ -127,6 +164,15 @@ contract = cg.learn(samples, strict=True)
 - GitHub Action for CI
 - Configurable type coercion (e.g. treat `int` and `float` as compatible)
 
+## Contributing
+
+Contributions are welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for how to
+set up a dev environment and run the tests.
+
 ## License
 
-MIT
+MIT — see [LICENSE](LICENSE).
+
+## Author
+
+Built and maintained by [Aman Gupta](https://github.com/amangupta982).
