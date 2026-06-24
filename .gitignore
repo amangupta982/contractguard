@@ -3,3 +3,4 @@ src/contractguard/__pycache__/
 .pytest_cache/  
 dist/
 *.egg-info/
+tests/__pycache__/
